@@ -75,5 +75,3 @@ def load(mode = 'r'):
         _write_metadata_json(content_dict, 'dataset/contents.json')
     
     return content_dict
-
-content_dict = load()
