@@ -58,7 +58,7 @@ def _write_metadata_json(metadata_dict, path, enc = 'utf8'):
         
 def _fetch_work(path, enc = 'utf8'):
     with open(path, 'r', encoding=enc) as work_file:
-        work_file_lines = work_file.readlines()
+        work_file_lines = work_file.read()
         
     return work_file_lines
 
