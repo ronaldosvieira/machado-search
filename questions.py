@@ -47,3 +47,11 @@ print("R: ")
 print("Média: " + str(dict(zip(genres, map(np.round, map(np.mean, amount_words_matrix))))))
 print("Mediana: " + str(dict(zip(genres, map(np.median, amount_words_matrix)))))
 print("Desvio padrao: " + str(dict(zip(genres, map(np.round, map(np.std, amount_words_matrix))))))
+
+print()
+
+print("Plote um grafico (num. palavras x classe) com os documentos de maior e menor numero de palavras.")
+input("Pressione Enter para visualizar o grafico...")
+
+max_amount_words_dict = dict(zip(genres, map(np.max, amount_words_matrix)))
+min_amount_words_dict = dict(zip(genres, map(np.min, amount_words_matrix)))
