@@ -51,7 +51,32 @@ print("Desvio padrao: " + str(dict(zip(genres, map(np.round, map(np.std, amount_
 print()
 
 print("Plote um grafico (num. palavras x classe) com os documentos de maior e menor numero de palavras.")
-input("Pressione Enter para visualizar o grafico...")
+print("<grafico - descomentar plt.show()>")
+#input("Pressione Enter para visualizar o grafico...")
 
-max_amount_words_dict = dict(zip(genres, map(np.max, amount_words_matrix)))
-min_amount_words_dict = dict(zip(genres, map(np.min, amount_words_matrix)))
+max_amount_words_list = np.array(list(map(np.max, amount_words_matrix)))
+min_amount_words_list =  np.array(list(map(np.min, amount_words_matrix)))
+max_amount_words_file_list = np.array(list(map(np.argmax, amount_words_matrix)))
+min_amount_words_file_list = np.array(list(map(np.argmin, amount_words_matrix)))
+
+fig, ax = plt.subplots()
+
+max_points = plt.plot(max_amount_words_list, 'ro', color='r')
+min_points = plt.plot(min_amount_words_list, 'ro', color='b')
+
+ax.set_ylabel('Qtd. de palavras')
+ax.set_title('Qtd. de palavras por genero')
+ax.set_xticklabels(genres, rotation=90)
+
+for i in range(0, len(max_amount_words_list)):
+    plt.annotate(metadata_dict[genres[i]][max_amount_words_file_list[i]]['path'], xy = (i, max_amount_words_list[i]), xytext = (20, 20), textcoords = 'offset points', ha = 'right', va = 'bottom',
+        bbox = dict(boxstyle = 'round,pad=0.5', fc = 'white', alpha = 0.5),
+        arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
+    
+    plt.annotate(metadata_dict[genres[i]][min_amount_words_file_list[i]]['path'], xy = (i, min_amount_words_list[i]), xytext = (20, 20), textcoords = 'offset points', ha = 'right', va = 'bottom',
+        bbox = dict(boxstyle = 'round,pad=0.5', fc = 'white', alpha = 0.5),
+        arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
+
+ax.legend((max_points[0], min_points[0]), ('Maior num. palavras', 'Menor num. palavras'))
+
+#plt.show()
