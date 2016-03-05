@@ -1,3 +1,4 @@
+import re
 import machado, numpy as np, matplotlib.pyplot as plt
 
 metadata_dict = machado.load()
@@ -6,7 +7,7 @@ genres = list(metadata_dict.keys())
 
 files_matrix = np.array([np.array([doc['file'] for doc in metadata_dict[genre]]) for genre in genres])
 
-split_files_matrix = np.array([np.array([doc['file'].split(' ') for doc in metadata_dict[genre]]) for genre in genres])
+split_files_matrix = np.array([np.array([re.compile('[^\w]').split(doc['file']) for doc in metadata_dict[genre]]) for genre in genres])
 
 print("Quantas classes existem dentre as obras de Machado de Assis?")
 print("R: " + str(len(files_matrix)))
