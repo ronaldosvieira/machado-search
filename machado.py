@@ -65,10 +65,10 @@ def _fetch_work(path, enc = 'utf8'):
 def load(mode = 'r'):
     # abre e le o arquivo com os titulos das obras
     if 'r' in mode:
-        content_dict = _read_metadata_json('dataset/contents.json', 'latin1')
+        content_dict = _read_metadata_json('dataset/contents.json', 'utf8')
     
     if 'ro' in mode:
-        content_dict = _read_metadata('dataset/CONTENTS', 'utf8')
+        content_dict = _read_metadata('dataset/CONTENTS', 'latin1')
     
     # escreve o json correspondente ao dicionario em arquivo
     if 'w' in mode:
