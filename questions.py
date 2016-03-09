@@ -81,3 +81,24 @@ for i in range(0, len(max_amount_words_list)):
 ax.legend((max_points[0], min_points[0]), ('Maior num. palavras', 'Menor num. palavras'))
 
 #plt.show()
+
+print()
+
+print("Quais sao as palavras mais frequentes em cada classe?")
+print("R: ")
+
+genre_words_dict = []
+for genre in split_files_matrix:
+    words_dict = {}
+    
+    for document in genre:
+        for word in document:
+            try:
+                words_dict[word] += 1
+            except:
+                words_dict[word] = 1
+                
+    genre_words_dict.append(words_dict)
+    
+#print([str(x).encode("utf8") for x in genre_words_dict[0]])
+#print(s.encode("utf-8"))
