@@ -78,55 +78,57 @@ def load(mode = 'r'):
     
     return content_dict
 
-content_dict = load()
 
-genre0 = content_dict['Traducao']
+def main():
+    content_dict = load()
 
-#print(content_dict['Traducao'][0]['file'])
+    genre0 = content_dict['Traducao']
 
-split_re = re.compile('[^\w]')
+    #print(content_dict['Traducao'][0]['file'])
 
-# le o arquivo com a lista de stop-words
-with open('stopwords.txt', 'r', encoding='utf8') as stop_words_file:
-    stop_words = stop_words_file.read().splitlines()
-    
-vocabulary = {}
-inverted_index = {}
+    split_re = re.compile('[^\w]')
 
-# pre-processa as palavras de cada documento e adicionas ao vocabulario
-for i in range(0, len(genre0)):
-    split_file = genre0[i]['file'].lower()
-    split_file = split_re.split(split_file)
-    split_file = list(filter(lambda x: x and x not in stop_words, split_file))
-    
-    for token in split_file:
-        vocabulary[token] = 1
-    
-    genre0[i]['words'] = split_file
+    # le o arquivo com a lista de stop-words
+    with open('stopwords.txt', 'r', encoding='utf8') as stop_words_file:
+        stop_words = stop_words_file.read().splitlines()
+
+    vocabulary = {}
+    inverted_index = {}
+
+    # pre-processa as palavras de cada documento e adicionas ao vocabulario
+    for i in range(0, len(genre0)):
+        split_file = genre0[i]['file'].lower()
+        split_file = split_re.split(split_file)
+        split_file = list(filter(lambda x: x and x not in stop_words, split_file))
+
+        for token in split_file:
+            vocabulary[token] = 1
+
+        genre0[i]['words'] = split_file
 
 
-# cria o indice invertido
-#for word in vocabulary.keys():
-#    inverted_index[word] = []
-#    
-#    for i in range(0, len(genre0)):
-#        if word in genre0[i]['words']:
-#            inverted_index[word].append(i)
+    # cria o indice invertido
+    #for word in vocabulary.keys():
+    #    inverted_index[word] = []
+    #    
+    #    for i in range(0, len(genre0)):
+    #        if word in genre0[i]['words']:
+    #            inverted_index[word].append(i)
 
-vocabulary_list = list(vocabulary)
+    vocabulary_list = list(vocabulary)
 
-documents_td = sparse.lil_matrix(np.zeros((len(vocabulary_list), len(genre0))))
+    documents_td = sparse.lil_matrix(np.zeros((len(vocabulary_list), len(genre0))))
 
-from pprint import pprint
-pprint(documents_td)
+    from pprint import pprint
+    pprint(documents_td)
 
-for i in range(0, len(genre0)):
-    for word in genre0[i]['words']:
-        word_i = vocabulary_list.index(word)
-        documents_td[word_i, i] = 1
-        
-#with open('words.txt', 'w', encoding='utf8') as output:
-#    data = json.dumps(documents_td, ensure_ascii=False)
-#    output.write(data)
+    for i in range(0, len(genre0)):
+        for word in genre0[i]['words']:
+            word_i = vocabulary_list.index(word)
+            documents_td[word_i, i] = 1
 
-pprint(documents_td)
+    #with open('words.txt', 'w', encoding='utf8') as output:
+    #    data = json.dumps(documents_td, ensure_ascii=False)
+    #    output.write(data)
+
+    pprint(documents_td)
