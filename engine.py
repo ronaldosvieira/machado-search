@@ -15,12 +15,12 @@ query = input("O que deseja buscar?\n")
 
 my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese')
 
-for token in my_analyzer(query):
-    print(repr(token.text))
+#for token in my_analyzer(query):
+#    print(repr(token.text))
     
-print()
+#print()
 
-schema = Schema(title=TEXT, content=TEXT(analyzer=my_analyzer), genre=TEXT, filepath=ID(stored=True))
+schema = Schema(title=TEXT(stored=True), content=TEXT(analyzer=my_analyzer), genre=TEXT(stored=True), filepath=ID(stored=True))
 
 if not os.path.exists("whoosh_index"):
     os.mkdir("whoosh_index")
@@ -49,7 +49,7 @@ try:
             print()
 
         for ri in results:
-            print("score:", ri.score, "of document:", ri.docnum)
+            print("score:", ri.score, "of document:", ri.docnum, "-", ri)
 
             if results.has_matched_terms():
                 print("matched terms:", ri.matched_terms())
