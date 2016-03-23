@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import machado, numpy as np
 import os.path
 from whoosh.analysis import RegexTokenizer, LowercaseFilter, StopFilter

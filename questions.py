@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import re
 import machado, numpy as np, matplotlib.pyplot as plt
 
