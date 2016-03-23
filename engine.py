@@ -17,6 +17,8 @@ my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese
 
 for token in my_analyzer(query):
     print(repr(token.text))
+    
+print()
 
 schema = Schema(title=TEXT, content=TEXT(analyzer=my_analyzer), genre=TEXT, filepath=ID(stored=True))
 
@@ -26,10 +28,10 @@ if not os.path.exists("whoosh_index"):
     
     writer = ix.writer()
     
-    writer.add_document(title=u"Meu documento", content=u"Isto é um documento!", genre="Traducao", filepath="a.txt")
-    writer.add_document(title=u"Segunda tentativa", content=u"Este é o segundo exemplo.", genre="Romance", filepath="b.txt")
-    writer.add_document(title=u"A terceira vez é a melhor", content=u"Existem muitos exemplos.", genre="Conto", filepath="c.txt")
-    
+    for genre in machado_data.keys():
+        for document in machado_data[genre]:
+            writer.add_document(title=document['name'], content=document['file'], genre=genre, filepath=document['path'])
+
     writer.commit()
 else:
     ix = open_dir("whoosh_index")
@@ -44,6 +46,7 @@ try:
 
         if results.has_matched_terms():
             print("All matched terms:", results.matched_terms())
+            print()
 
         for ri in results:
             print("score:", ri.score, "of document:", ri.docnum)
