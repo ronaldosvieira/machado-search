@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <title>machado-search: Motor de busca para as obras de Machado de Assis</title>
+    <style>
+        .content {
+            height: 200px;
+            text-align: center;
+            font-size: 1.5em;
+
+            position: absolute;
+            left: 0; right: 0;
+            top: 0; bottom: 0;
+            margin: auto;
+
+            /*this to solve "the content will not be cut when the window is smaller than the content": */
+            max-width: 100%;
+            max-height: 100%;
+            overflow: auto;
+        }
+        
+        input[type="text"] {
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <form action="" method="get">
+            <label for="query"><h1>machado-search</h1></label>
+            <input type="text" name="query" size="30">
+        </form>
+    </div>
+</body>
+</html>
