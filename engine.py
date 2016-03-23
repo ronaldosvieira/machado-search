@@ -11,14 +11,7 @@ from whoosh.qparser import QueryParser
 
 machado_data = machado.load()
 
-query = input("O que deseja buscar?\n")
-
 my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese')
-
-#for token in my_analyzer(query):
-#    print(repr(token.text))
-    
-#print()
 
 schema = Schema(title=TEXT(stored=True), content=TEXT(analyzer=my_analyzer), genre=TEXT(stored=True), filepath=ID(stored=True))
 
@@ -35,25 +28,29 @@ if not os.path.exists("whoosh_index"):
     writer.commit()
 else:
     ix = open_dir("whoosh_index")
+
+def search(query):
+    output = ""
     
-try:
-    with ix.searcher() as searcher:
-        parser = QueryParser("content", schema)
-        parsed_query = parser.parse(query)
+    try:
+        with ix.searcher() as searcher:
+            parser = QueryParser("content", schema)
+            parsed_query = parser.parse(query)
 
-        results = searcher.search(parsed_query, terms=True)
-        print("Retrieved: ", len(results), "documents!")
-
-        if results.has_matched_terms():
-            print("All matched terms:", results.matched_terms())
-            print()
-
-        for ri in results:
-            print("score:", ri.score, "of document:", ri.docnum, "-", ri)
+            results = searcher.search(parsed_query, terms=True)
+            output += "Retrieved: " + str(len(results)) + " documents!<br>"
 
             if results.has_matched_terms():
-                print("matched terms:", ri.matched_terms())
-            else:
-                print()
-finally:
-    ix.close()
+                output += "All matched terms: " + str(results.matched_terms()) + "<br><br>"
+
+            for ri in results:
+                output += "score: " + str(ri.score) + " of document: " + str(ri.docnum) + " - " + str(ri['title']) + "<br>"
+
+                if results.has_matched_terms():
+                    output += "matched terms: " + str(ri.matched_terms()) + "<br>"
+                else:
+                    output += "<br>"
+    finally:
+        ix.close()
+        
+    return output
