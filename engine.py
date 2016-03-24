@@ -7,7 +7,7 @@ from whoosh.analysis import RegexTokenizer, LowercaseFilter, StopFilter, Charset
 from whoosh.fields import Schema, TEXT, ID
 from whoosh.index import create_in, open_dir
 from whoosh.query import *
-from whoosh.qparser import QueryParser
+from whoosh.qparser import MultifieldParser
 from whoosh.support.charset import accent_map
 
 machado_data = machado.load()
@@ -30,12 +30,12 @@ if not os.path.exists("whoosh_index"):
 else:
     ix = open_dir("whoosh_index")
 
-def search(query):
+def search(query, fields):
     output = ""
     
     try:
         with ix.searcher() as searcher:
-            parser = QueryParser("content", schema)
+            parser = MultifieldParser(fields, schema)
             parsed_query = parser.parse(query)
             
             results = searcher.search(parsed_query, terms=True)
