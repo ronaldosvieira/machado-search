@@ -3,15 +3,16 @@
 
 import machado, numpy as np
 import os.path
-from whoosh.analysis import RegexTokenizer, LowercaseFilter, StopFilter
+from whoosh.analysis import RegexTokenizer, LowercaseFilter, StopFilter, CharsetFilter
 from whoosh.fields import Schema, TEXT, ID
 from whoosh.index import create_in, open_dir
 from whoosh.query import *
 from whoosh.qparser import QueryParser
+from whoosh.support.charset import accent_map
 
 machado_data = machado.load()
 
-my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese')
+my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese') | CharsetFilter(accent_map)
 
 schema = Schema(title=TEXT(stored=True), content=TEXT(analyzer=my_analyzer), genre=TEXT(stored=True), filepath=ID(stored=True))
 
@@ -36,7 +37,7 @@ def search(query):
         with ix.searcher() as searcher:
             parser = QueryParser("content", schema)
             parsed_query = parser.parse(query)
-
+            
             results = searcher.search(parsed_query, terms=True)
             output += "Retrieved: " + str(len(results)) + " documents!<br>"
 
