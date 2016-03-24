@@ -9,7 +9,7 @@
     </script>
     <style>
         .content {
-            height: 200px;
+            height: 400px;
             text-align: center;
             font-size: 1.5em;
 
@@ -35,6 +35,16 @@
         <form action="" method="get">
             <label for="query"><h1>machado-search</h1></label>
             <input type="text" id="search-bar" name="query" size="20" placeholder="digite sua consulta + enter" autocomplete="off">
+            
+            <br><br>
+            
+            <strong>Pesquisar por:</strong>
+            
+            <input type="checkbox" name="fields" value="title" checked>
+            <label for="fields">título</label>
+            
+            <input type="checkbox" name="fields" value="content" checked>
+            <label for="fields">conteúdo</label>
         </form>
     </div>
 </body>

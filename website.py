@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     query = request.args.get('query')
-    fields = ['content', 'title']
+    fields = request.args.getlist('fields')
     
     if query is None:
         return render_template('index.html')
