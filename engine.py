@@ -14,7 +14,7 @@ machado_data = machado.load()
 
 my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese') | CharsetFilter(accent_map)
 
-schema = Schema(title=TEXT(stored=True), content=TEXT(analyzer=my_analyzer), genre=TEXT(stored=True), filepath=ID(stored=True))
+schema = Schema(title=TEXT(stored=True, field_boost=2.0), content=TEXT(analyzer=my_analyzer), genre=TEXT(stored=True), filepath=ID(stored=True))
 
 if not os.path.exists("whoosh_index"):
     os.mkdir("whoosh_index")
