@@ -1,0 +1,48 @@
+<!doctype html>
+<html onclick="toggle_focus();">
+<head>
+    <title>machado-search: Motor de busca para as obras de Machado de Assis</title>
+    <script type="text/javascript">
+        toggle_focus = function() {
+            document.getElementById("search-bar").focus();
+        };
+    </script>
+    <style>
+        .content {
+            height: 400px;
+            text-align: center;
+            font-size: 1.5em;
+
+            position: absolute;
+            left: 0; right: 0;
+            top: 0; bottom: 0;
+            margin: auto;
+
+            max-width: 100%;
+            max-height: 100%;
+            overflow: auto;
+        }
+        
+        input[type="text"] {
+            font-size: 2em;
+            border: 0;
+            outline: none;
+        }
+    </style>
+</head>
+<body onload="toggle_focus();">
+    <div class="content">
+        Retrieved: {{ results.estimated_length() }} documents!
+        
+        {% for result in results %}
+            <div class='result'>
+                <strong>{{ result.rank + 1 }}. {{ result['title'] }}</strong>
+                <br>
+                Gênero: {{ result['genre'] }}
+                <br>
+                Score: {{ result.score }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
