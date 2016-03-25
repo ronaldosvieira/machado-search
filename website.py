@@ -9,7 +9,7 @@ def home():
     fields = request.args.getlist('fields')
     genres = request.args.getlist('genres')
     
-    if query is None:
+    if not query:
         return render_template('index.html')
     else:
         results = engine.search(query, fields, genres)
