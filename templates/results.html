@@ -114,6 +114,10 @@
                 gênero: {{ result['genre'] }}
                 <br>
                 score: {{ result.score }}
+                <br>
+                <a href="{{ result['pdf'] }}">pdf</a>
+                &#183;
+                <a href="{{ result['html'] }}">html</a>
             </div>
         {% endfor %}
     </div>
