@@ -30,7 +30,7 @@ if not os.path.exists("whoosh_index"):
 else:
     ix = open_dir("whoosh_index")
 
-def search(query, fields):
+def search(query, fields, genres):
     output = ""
     
     try:
@@ -38,14 +38,16 @@ def search(query, fields):
             parser = MultifieldParser(fields, schema)
             parsed_query = parser.parse(query)
             
-            results = searcher.search(parsed_query, terms=True)
-            output += "Retrieved: " + str(len(results)) + " documents!<br>"
+            allow_genres = Or([Term('genre', genre) for genre in genres])
+            
+            results = searcher.search(parsed_query, terms=True, filter=allow_genres)
+            output += "Retrieved: " + str(len(results) - results.filtered_count) + " documents!<br>"
 
             if results.has_matched_terms():
                 output += "All matched terms: " + str(results.matched_terms()) + "<br><br>"
 
             for ri in results:
-                output += "score: " + str(ri.score) + " of document: " + str(ri.docnum) + " - " + str(ri['title']) + "<br>"
+                output += "score: " + str(ri.score) + " of document: " + str(ri.docnum) + " - " + str(ri['title']) + "<br>" + str(ri['genre']) + "<br>"
 
                 if results.has_matched_terms():
                     output += "matched terms: " + str(ri.matched_terms()) + "<br>"

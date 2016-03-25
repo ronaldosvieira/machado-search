@@ -7,11 +7,12 @@ app = Flask(__name__)
 def home():
     query = request.args.get('query')
     fields = request.args.getlist('fields')
+    genres = request.args.getlist('genres')
     
     if query is None:
         return render_template('index.html')
     else:
-        return engine.search(query, fields)
+        return engine.search(query, fields, genres)
 
 if __name__ == "__main__":
     app.run(debug=True)
