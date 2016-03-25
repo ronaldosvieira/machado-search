@@ -40,6 +40,11 @@ def search(query, fields, genres):
 
     results = searcher.search(parsed_query, terms=True, filter=allow_genres)
     
+    corrected = searcher.correct_query(parsed_query, query)
+    if corrected.query != parsed_query:
+        results.was_corrected = True
+        results.corrected_query = corrected.string
+    
     return results
 
 def close():

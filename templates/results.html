@@ -103,7 +103,12 @@
     <br><hr>
     
     <div class="content">
-        <div>achamos {{ results.estimated_length() }} resultado(s)!</div>
+        <div>
+            achamos {{ results.estimated_length() }} resultado(s)!
+            {% if results.was_corrected %}
+            <br><br>você quis dizer <strong>{{ results.corrected_query }}</strong>?
+            {% endif %}
+        </div>
         
         <br>
         
