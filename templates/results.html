@@ -8,39 +8,112 @@
         };
     </script>
     <style>
-        .content {
-            height: 400px;
-            text-align: center;
-            font-size: 1.5em;
-
-            position: absolute;
-            left: 0; right: 0;
-            top: 0; bottom: 0;
-            margin: auto;
-
-            max-width: 100%;
-            max-height: 100%;
-            overflow: auto;
+        .h1 {
+            display: block;
+            font-weight: bold;
+            font-size: 2em;
+            padding-bottom: 15px;
         }
         
+        header {
+            padding: 20px;
+        }
+        
+        .content {
+            padding: 20px;
+            font-size: 1.5em;
+        }
+        
+        #search, #options {
+            float: left;
+            padding-right: 20px;
+        }
+        
+        .result {padding-bottom: 20px;}
+        
+        //div, header {border: 1px solid black;}
+        
         input[type="text"] {
-            font-size: 2em;
+            font-size: 1.5em;
             border: 0;
             outline: none;
+        }
+        
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
 <body onload="toggle_focus();">
+    <header>
+        <form action="" method="get">
+            <div id="search">
+                <label for="query"><span class="h1">machado-search</span></label>
+                    <input type="text" id="search-bar" name="query" size="20" placeholder="digite sua consulta + enter" autocomplete="off">
+            </div>
+            <div id="options">
+                <strong>pesquisar por:</strong>
+
+                <input type="checkbox" name="fields" value="title" checked>
+                <label for="fields">título</label>
+
+                <input type="checkbox" name="fields" value="content" checked>
+                <label for="fields">conteúdo</label>
+
+                <br><br>
+
+                <table>
+                <tr>
+                <td valign="top">
+                    <strong>nos gêneros:</strong>
+                </td>
+                
+                <td>
+                    <input type="checkbox" name="genres" value="romance" checked>
+                    <label for="genres">romance</label>
+
+                    <input type="checkbox" name="genres" value="poesia" checked>
+                    <label for="genres">poesia</label>
+
+                    <input type="checkbox" name="genres" value="contos" checked>
+                    <label for="genres">contos</label>
+
+                    <input type="checkbox" name="genres" value="traducao" checked>
+                    <label for="genres">tradução</label>
+                    <br>
+                    <input type="checkbox" name="genres" value="cronica" checked>
+                    <label for="genres">crônica</label>
+
+                    <input type="checkbox" name="genres" value="critica" checked>
+                    <label for="genres">crítica</label>
+
+                    <input type="checkbox" name="genres" value="miscelanea" checked>
+                    <label for="genres">miscelânea</label>
+                </td>
+                </tr>
+                </table>
+            </div>
+        </form>
+    </header>
+    
+    <div class="clearfix"></div>
+    
+    <br><hr>
+    
     <div class="content">
-        Retrieved: {{ results.estimated_length() }} documents!
+        <div>achamos {{ results.estimated_length() }} resultado(s)!</div>
+        
+        <br>
         
         {% for result in results %}
             <div class='result'>
                 <strong>{{ result.rank + 1 }}. {{ result['title'] }}</strong>
                 <br>
-                Gênero: {{ result['genre'] }}
+                gênero: {{ result['genre'] }}
                 <br>
-                Score: {{ result.score }}
+                score: {{ result.score }}
             </div>
         {% endfor %}
     </div>
