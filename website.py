@@ -12,7 +12,10 @@ def home():
     if query is None:
         return render_template('index.html')
     else:
-        return engine.search(query, fields, genres)
+        results = engine.search(query, fields, genres)
+        
+        return render_template('results.html', results=results)
 
 if __name__ == "__main__":
     app.run(debug=True)
+    engine.close()
