@@ -5,7 +5,7 @@ import re, json
 import numpy as np
 from scipy import sparse
         
-def _read_metadata(path, enc):
+def _read_metadata(path, enc='utf8'):
     with open(path, encoding=enc) as contents_file:
             contents = contents_file.readlines()
             
@@ -19,6 +19,7 @@ def _read_metadata(path, enc):
     content_dict = {}
     title_pattern = re.compile('^(\w+)$')
     path_pattern = re.compile('^(\w+/\w+\.txt): (.+)$')
+    media_pattern = re.compile('^(\w+)/(\w+)\.txt: (.+)$')
 
     i = 0
     while i < len(contents):
@@ -33,8 +34,12 @@ def _read_metadata(path, enc):
 
                 if not is_path:
                     break
+                
+                is_media = media_pattern.search(contents[j])
+                pdf = 'http://machado.mec.gov.br/images/stories/pdf/' + is_media.group(1) + '/' + is_media.group(2) + '.pdf'
+                html = 'http://machado.mec.gov.br/images/stories/html/' + is_media.group(1) + '/' + is_media.group(2) + '.htm'
 
-                content_dict[is_title.group(0)].append({'name': is_path.group(2), 'path': is_path.group(1), 'file': _fetch_work('dataset/' + is_path.group(1), 'cp1252')})
+                content_dict[is_title.group(0)].append({'name': is_path.group(2), 'path': is_path.group(1), 'pdf': pdf, 'html': html, 'file': _fetch_work('dataset/' + is_path.group(1), 'cp1252')})
                 j += 1
 
             i = j
@@ -73,7 +78,7 @@ def load(mode = 'r'):
         content_dict = _read_metadata_json('dataset/contents.json', 'utf8')
     
     if 'ro' in mode:
-        content_dict = _read_metadata('dataset/CONTENTS', 'latin1')
+        content_dict = _read_metadata('dataset/CONTENTS')
     
     # escreve o json correspondente ao dicionario em arquivo
     if 'w' in mode:
