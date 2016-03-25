@@ -14,7 +14,7 @@ machado_data = machado.load()
 
 my_analyzer = RegexTokenizer() | LowercaseFilter() | StopFilter(lang='portuguese') | CharsetFilter(accent_map)
 
-schema = Schema(title=TEXT(stored=True, field_boost=2.0, analyzer=my_analyzer), content=TEXT(analyzer=my_analyzer), genre=TEXT(stored=True), filepath=ID(stored=True), pdf=TEXT(stored=True), html=TEXT(stored=True))
+schema = Schema(title=TEXT(stored=True, field_boost=2.0, analyzer=my_analyzer), content=TEXT(analyzer=my_analyzer), date=TEXT(stored=True), genre=TEXT(stored=True), filepath=ID(stored=True), pdf=TEXT(stored=True), html=TEXT(stored=True))
 
 if not os.path.exists("whoosh_index"):
     os.mkdir("whoosh_index")
@@ -24,7 +24,7 @@ if not os.path.exists("whoosh_index"):
     
     for genre in machado_data.keys():
         for document in machado_data[genre]:
-            writer.add_document(title=document['name'], content=document['file'], genre=genre, filepath=document['path'], pdf=document['pdf'], html=document['html'])
+            writer.add_document(title=document['name'], content=document['file'], date=document['date'], genre=genre, filepath=document['path'], pdf=document['pdf'], html=document['html'])
 
     writer.commit()
 else:

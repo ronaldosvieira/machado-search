@@ -19,7 +19,7 @@ def _read_metadata(path, enc='utf8'):
     content_dict = {}
     title_pattern = re.compile('^(\w+)$')
     path_pattern = re.compile('^(\w+/\w+\.txt): (.+)$')
-    media_pattern = re.compile('^(\w+)/(\w+)\.txt: (.+)$')
+    media_pattern = re.compile('^(\w+)/(\w+)\.txt: (.+)\s\(([\w-]+)\)(?:;.+)?$')
 
     i = 0
     while i < len(contents):
@@ -39,7 +39,7 @@ def _read_metadata(path, enc='utf8'):
                 pdf = 'http://machado.mec.gov.br/images/stories/pdf/' + is_media.group(1) + '/' + is_media.group(2) + '.pdf'
                 html = 'http://machado.mec.gov.br/images/stories/html/' + is_media.group(1) + '/' + is_media.group(2) + '.htm'
 
-                content_dict[is_title.group(0)].append({'name': is_path.group(2), 'path': is_path.group(1), 'pdf': pdf, 'html': html, 'file': _fetch_work('dataset/' + is_path.group(1), 'cp1252')})
+                content_dict[is_title.group(0)].append({'name': is_media.group(3), 'path': is_path.group(1), 'pdf': pdf, 'html': html, 'date': is_media.group(4), 'file': _fetch_work('dataset/' + is_path.group(1), 'cp1252')})
                 j += 1
 
             i = j
