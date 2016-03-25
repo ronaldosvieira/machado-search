@@ -104,9 +104,10 @@
     
     <div class="content">
         <div>
-            achamos {{ results.estimated_length() }} resultado(s)!
+            achamos {{ results.estimated_length() }} resultado{{ 's' if results.estimated_length() != 1 }}!
+            
             {% if results.was_corrected %}
-            <br><br>você quis dizer <strong>{{ results.corrected_query }}</strong>?
+                <br><br>você quis dizer <strong>{{ results.corrected_query }}</strong>?
             {% endif %}
         </div>
         
