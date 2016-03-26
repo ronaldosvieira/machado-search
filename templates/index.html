@@ -37,18 +37,17 @@
         .vertical-center {
             min-width: 100%;
             min-height: 100%;
-            
             display: flex;
             align-items: center;
         }
         
-        #machado-img {
-            //height: 600px;
-        }
+        .options {line-height: 3em;}
     </style>
     
     <!-- Bootstrap -->
     <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    
+    <link href="{{ url_for('static', filename='css/btn-inverse.css') }}" rel="stylesheet">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -72,40 +71,63 @@
 
                     <br><br><br>
                     
-                    <div id="options">
+                    <div id="options-box">
 
-                        <strong>pesquisar por:</strong>
+                        <span class="h4">pesquisar por:</span>
+                        
+                        <span class="options" data-toggle="buttons">
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="fields" value="title" autocomplete="off" checked>
+                                Título
+                            </label>
 
-                        <input type="checkbox" name="fields" value="title" checked>
-                        <label for="fields">título</label>
-
-                        <input type="checkbox" name="fields" value="content" checked>
-                        <label for="fields">conteúdo</label>
-
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="fields" value="content" autocomplete="off" checked>
+                                Conteúdo
+                            </label>
+                        </span>
+                        
                         <br><br>
 
-                        <strong>nos gêneros:</strong>
+                        <span class="h4">Nos gêneros:</span>
 
-                        <input type="checkbox" name="genres" value="romance" checked>
-                        <label for="genres">romance</label>
+                        <span class="options" data-toggle="buttons">
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="romance" autocomplete="off" checked>
+                                Romance
+                            </label>
+                            
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="poesia" autocomplete="off" checked>
+                                Poesia
+                            </label>
+                            
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="contos" autocomplete="off" checked>
+                                Contos
+                            </label>
+                            
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="traducao" autocomplete="off" checked>
+                                Tradução
+                            </label>
+                            
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="cronica" autocomplete="off" checked>
+                                Crônica
+                            </label>
 
-                        <input type="checkbox" name="genres" value="poesia" checked>
-                        <label for="genres">poesia</label>
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="critica" autocomplete="off" checked>
+                                Crítica
+                            </label>
 
-                        <input type="checkbox" name="genres" value="contos" checked>
-                        <label for="genres">contos</label>
-
-                        <input type="checkbox" name="genres" value="traducao" checked>
-                        <label for="genres">tradução</label>
-                        
-                        <input type="checkbox" name="genres" value="cronica" checked>
-                        <label for="genres">crônica</label>
-
-                        <input type="checkbox" name="genres" value="critica" checked>
-                        <label for="genres">crítica</label>
-
-                        <input type="checkbox" name="genres" value="miscelanea" checked>
-                        <label for="genres">miscelânea</label>
+                            <label for="fields" class="btn btn-default active">
+                                <input type="checkbox" name="genres" value="miscelanea" autocomplete="off" checked>
+                                Miscelânea
+                            </label>
+                            
+                        </span>
                     </div>
                 </form>
             </div>
