@@ -1,76 +1,118 @@
 <!doctype html>
-<html onclick="toggle_focus();">
+<html lang="br" onclick="toggle_focus();">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <title>machado-search: Motor de busca para as obras de Machado de Assis</title>
+    
     <script type="text/javascript">
         toggle_focus = function() {
             document.getElementById("search-bar").focus();
         };
     </script>
+    
     <style>
-        .content {
-            height: 400px;
-            text-align: center;
-            font-size: 1.5em;
+        html {height: 100%;}
 
-            position: absolute;
-            left: 0; right: 0;
-            top: 0; bottom: 0;
-            margin: auto;
-
-            max-width: 100%;
-            max-height: 100%;
-            overflow: auto;
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #f7f7f7 !important;
         }
         
         input[type="text"] {
             font-size: 2em;
             border: 0;
             outline: none;
+            background-color: #f7f7f7;
+        }
+        
+        .container {
+            height: 100%;
+            text-align: center;
+        }
+        
+        .vertical-center {
+            min-width: 100%;
+            min-height: 100%;
+            
+            display: flex;
+            align-items: center;
+        }
+        
+        #machado-img {
+            //height: 600px;
         }
     </style>
+    
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body onload="toggle_focus();">
-    <div class="content">
-        <form action="" method="get">
-            <label for="query"><h1>machado-search</h1></label>
-            <input type="text" id="search-bar" name="query" size="20" placeholder="digite sua consulta + enter" autocomplete="off">
-            
-            <br><br><br>
-            
-            <strong>pesquisar por:</strong>
-            
-            <input type="checkbox" name="fields" value="title" checked>
-            <label for="fields">título</label>
-            
-            <input type="checkbox" name="fields" value="content" checked>
-            <label for="fields">conteúdo</label>
-            
-            <br><br>
-            
-            <strong>nos gêneros:</strong>
-            
-            <input type="checkbox" name="genres" value="romance" checked>
-            <label for="genres">romance</label>
-            
-            <input type="checkbox" name="genres" value="poesia" checked>
-            <label for="genres">poesia</label>
-            
-            <input type="checkbox" name="genres" value="contos" checked>
-            <label for="genres">contos</label>
-            
-            <input type="checkbox" name="genres" value="traducao" checked>
-            <label for="genres">tradução</label>
-            <br>
-            <input type="checkbox" name="genres" value="cronica" checked>
-            <label for="genres">crônica</label>
-            
-            <input type="checkbox" name="genres" value="critica" checked>
-            <label for="genres">crítica</label>
-            
-            <input type="checkbox" name="genres" value="miscelanea" checked>
-            <label for="genres">miscelânea</label>
-        </form>
+    <div class="container">
+        <div class="row vertical-center">
+            <div class="hidden-xs col-lg-4 col-lg-offset-1">
+                <img src="{{ url_for('static', filename='img/machado.jpg') }}" alt="Machado de Assis" id="machado-img" class="img-responsive">
+            </div>
+            <div class="col-xs-12 col-lg-5">
+                <form action="" method="get">
+                    <label for="query"><h1><strong>machado-search</strong></h1></label>
+                    <br>
+                    <input type="text" id="search-bar" name="query" size="20" placeholder="digite sua consulta + enter" autocomplete="off">
+
+                    <br><br><br>
+                    
+                    <div id="options">
+
+                        <strong>pesquisar por:</strong>
+
+                        <input type="checkbox" name="fields" value="title" checked>
+                        <label for="fields">título</label>
+
+                        <input type="checkbox" name="fields" value="content" checked>
+                        <label for="fields">conteúdo</label>
+
+                        <br><br>
+
+                        <strong>nos gêneros:</strong>
+
+                        <input type="checkbox" name="genres" value="romance" checked>
+                        <label for="genres">romance</label>
+
+                        <input type="checkbox" name="genres" value="poesia" checked>
+                        <label for="genres">poesia</label>
+
+                        <input type="checkbox" name="genres" value="contos" checked>
+                        <label for="genres">contos</label>
+
+                        <input type="checkbox" name="genres" value="traducao" checked>
+                        <label for="genres">tradução</label>
+                        
+                        <input type="checkbox" name="genres" value="cronica" checked>
+                        <label for="genres">crônica</label>
+
+                        <input type="checkbox" name="genres" value="critica" checked>
+                        <label for="genres">crítica</label>
+
+                        <input type="checkbox" name="genres" value="miscelanea" checked>
+                        <label for="genres">miscelânea</label>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+    
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 </body>
 </html>
