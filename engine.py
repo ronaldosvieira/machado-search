@@ -32,13 +32,13 @@ else:
     
 searcher = ix.searcher()
 
-def search(query, fields, genres):
+def search(query, fields, genres, page):
     parser = MultifieldParser(fields, schema)
     parsed_query = parser.parse(query)
 
     allow_genres = Or([Term('genre', genre) for genre in genres])
 
-    results = searcher.search(parsed_query, terms=True, filter=allow_genres)
+    results = searcher.search_page(parsed_query, page, terms=True, filter=allow_genres)
     
     corrected = searcher.correct_query(parsed_query, query)
     if corrected.query != parsed_query:

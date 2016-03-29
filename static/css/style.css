@@ -31,3 +31,9 @@ input[type="text"] {
 }
 
 .options {line-height: 3em;}
+
+.pagination a {color: inherit !important;}
+.pagination .active a {
+    background-color: lightgrey !important;
+    border: 1px solid lightgrey !important;
+}
