@@ -1,0 +1,33 @@
+html {height: 100%;}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #f7f7f7 !important;
+}
+
+header {padding: 20px;}
+
+.container {height: 100%;}
+
+input[type="text"] {
+    font-size: 2em;
+    border: 0;
+    outline: none;
+    background-color: #f7f7f7;
+}
+
+#search, #options-box {
+    float: left;
+    padding: 20px;
+}
+
+.vertical-center {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.options {line-height: 3em;}
