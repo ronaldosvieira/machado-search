@@ -106,10 +106,11 @@
         <div>
             <h4>achamos {{ results.total }} resultado{{ 's' if results.total != 1 }}!</h4>
             
+            {% if results.total %}
             <nav>
                 <ul class="pagination">
-                    <li class="{{ 'disabled' if results.pagenum == 1 or results.total == 0}}">
-                        <a href="{{ url_for_page(page=results.pagenum - 1) if results.pagenum != 1 and results.total > 0}}" aria-label="Previous">
+                    <li class="{{ 'disabled' if results.pagenum == 1}}">
+                        <a href="{{ url_for_page(page=results.pagenum - 1) if results.pagenum != 1}}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -129,6 +130,7 @@
                     </li>
                 </ul>
             </nav>
+            {% endif %}
             
             {% if results.was_corrected %}
             <div class="alert alert-warning alert-dismissible" role="alert">
@@ -162,10 +164,11 @@
         {% endfor %}
         </ul>
         
+        {% if results.total %}
         <nav>
             <ul class="pagination">
-                <li class="{{ 'disabled' if results.pagenum == 1 or results.total == 0}}">
-                    <a href="{{ url_for_page(page=results.pagenum - 1) if results.pagenum != 1 and results.total > 0}}" aria-label="Previous">
+                <li class="{{ 'disabled' if results.pagenum == 1}}">
+                    <a href="{{ url_for_page(page=results.pagenum - 1) if results.pagenum != 1}}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -185,6 +188,7 @@
                 </li>
             </ul>
         </nav>
+        {% endif %}
     </div>
     
     <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
